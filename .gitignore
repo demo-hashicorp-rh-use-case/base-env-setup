@@ -1,0 +1,6 @@
+terraform-enterprise/terraform.tfvars
+terraform-enterprise/generated-keys/*
+*/.terraform*
+*/terraform.tfstate.backup
+terraform/generated-keys/*
+*/terraform.tfstate

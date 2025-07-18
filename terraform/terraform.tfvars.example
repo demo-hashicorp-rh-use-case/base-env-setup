@@ -1,0 +1,44 @@
+# Terraform example configuration
+# Copy this file to terraform.tfvars and adjust the values as needed
+
+aws_region     = "us-west-2"
+project_name   = "base-env"
+
+# SSH Key Configuration - Choose ONE of the following options:
+
+# Option 1: Generate a new SSH key pair automatically
+generate_new_key = true
+key_pair_name    = "terraform-generated-key"
+# public_key_content is not needed when generate_new_key = true
+
+# Option 2: Upload your existing public key
+# generate_new_key   = false
+# key_pair_name      = "my-uploaded-key"
+# public_key_content = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7... your-email@example.com"
+
+# Option 3: Use an existing AWS key pair (key must already exist in AWS)
+# generate_new_key   = false
+# key_pair_name      = "existing-aws-key"
+# public_key_content = ""  # Leave empty if key already exists in AWS
+
+# Network configuration
+vpc_cidr            = "10.0.0.0/16"
+public_subnet_cidr  = "10.0.1.0/24"
+private_subnet_cidr = "10.0.2.0/24"
+
+# Instance types
+bastion_instance_type = "t3.micro"
+private_instance_type = "t3.micro"
+vault_instance_type   = "t3.small"  # Vault needs slightly more resources
+tfe_instance_type     = "t3.large"  # TFE requires more resources
+
+# Secondary User Configuration (Optional)
+# Creates an additional user with separate SSH key for Vault access
+create_secondary_user      = false
+secondary_user_name        = "vault-admin"
+generate_secondary_key     = false
+secondary_key_pair_name    = "vault-admin-key"
+# secondary_user_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7... admin-email@example.com"
+
+# Security - restrict this to your IP for better security
+allowed_ssh_cidr = "0.0.0.0/0"  # Change this to your IP/32 for better security
